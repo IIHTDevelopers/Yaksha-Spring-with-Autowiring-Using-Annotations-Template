@@ -33,38 +33,46 @@ public class ECommerceAnnotationContollerTests {
 	// Test if the Spring Boot application context loads correctly
 	@Test
 	public void testApplicationContextLoads() throws IOException {
-		// Assert that the application context loads and the beans are created
-		boolean customerLoaded = customer != null;
-		boolean orderLoaded = order != null;
+		try {
+			// Assert that the application context loads and the beans are created
+			boolean customerLoaded = customer != null;
+			boolean orderLoaded = order != null;
 
-		System.out.println("Customer bean loaded: " + customerLoaded);
-		System.out.println("Order bean loaded: " + orderLoaded);
+			System.out.println("Customer bean loaded: " + customerLoaded);
+			System.out.println("Order bean loaded: " + orderLoaded);
 
-		// Auto-grading with yakshaAssert
-		yakshaAssert(currentTest(), customerLoaded && orderLoaded, businessTestFile);
+			// Auto-grading with yakshaAssert
+			yakshaAssert(currentTest(), customerLoaded && orderLoaded, businessTestFile);
+		} catch (Exception ex) {
+			yakshaAssert(currentTest(), false, businessTestFile);
+		}
 	}
 
 	// Test if the customer and order details are correctly initialized and business
 	// logic works
 	@Test
 	public void testECommerceApplicationFunctionality() throws IOException {
-		// Verify if customer details are correct
-		boolean customerNameValid = customer.getName() != null && customer.getName().equals("John Doe");
-		boolean customerIdValid = customer.getCustomerId() != null && customer.getCustomerId().equals("CUST001");
+		try {
+			// Verify if customer details are correct
+			boolean customerNameValid = customer.getName() != null && customer.getName().equals("John Doe");
+			boolean customerIdValid = customer.getCustomerId() != null && customer.getCustomerId().equals("CUST001");
 
-		// Verify if order details are correct
-		boolean orderIdValid = order.getOrderId() != null && order.getOrderId().equals("ORD12345");
-		boolean orderAmountValid = order.getTotalAmount() == 1000.0;
+			// Verify if order details are correct
+			boolean orderIdValid = order.getOrderId() != null && order.getOrderId().equals("ORD12345");
+			boolean orderAmountValid = order.getTotalAmount() == 1000.0;
 
-		// Log the checks for customer and order
-		System.out.println("Customer name valid: " + customerNameValid);
-		System.out.println("Customer ID valid: " + customerIdValid);
-		System.out.println("Order ID valid: " + orderIdValid);
-		System.out.println("Order total amount valid: " + orderAmountValid);
+			// Log the checks for customer and order
+			System.out.println("Customer name valid: " + customerNameValid);
+			System.out.println("Customer ID valid: " + customerIdValid);
+			System.out.println("Order ID valid: " + orderIdValid);
+			System.out.println("Order total amount valid: " + orderAmountValid);
 
-		// Assert customer and order details
-		yakshaAssert(currentTest(), customerNameValid && customerIdValid && orderIdValid && orderAmountValid,
-				businessTestFile);
+			// Assert customer and order details
+			yakshaAssert(currentTest(), customerNameValid && customerIdValid && orderIdValid && orderAmountValid,
+					businessTestFile);
+		} catch (Exception ex) {
+			yakshaAssert(currentTest(), false, businessTestFile);
+		}
 	}
 
 	// Test if ECommerceApplication class has @SpringBootApplication annotation
